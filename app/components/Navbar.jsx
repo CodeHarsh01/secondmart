@@ -1,5 +1,6 @@
 'use client'
 import Link from 'next/link'
+import logo from './assets/logo.png';
 import React, { useState } from 'react'
 import { FaSign, FaSignInAlt } from 'react-icons/fa';
 import { RiMenu3Fill } from "react-icons/ri";
@@ -9,7 +10,7 @@ export default function Navbar() {
     <div>
       <div className='bg-white px-4 sm:px-6 py-5 shadow-md flex justify-between items-center'>
         <Link href="/">
-          <img src="/logo.png" alt="logo" className="w-26 sm:w-32" />
+          <img src={logo} alt="logo" className="w-26 sm:w-32" />
         </Link>
         <div className='hidden md:flex gap-4 items-center font-medium'>
           <Link href="/">Home</Link>
