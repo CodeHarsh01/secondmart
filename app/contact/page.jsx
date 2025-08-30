@@ -37,7 +37,7 @@ export default function Contact() {
           <div>
             <h2 className="text-2xl font-bold mb-6">Get in Touch</h2>
             <p className="mb-4 text-gray-600">
-              Have questions about bikes, deals, or services?  
+              Have questions about bikes, cars, deals, or services?  
               Fill out the form or reach us directly.
             </p>
             <ul className="space-y-4">

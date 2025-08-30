@@ -1,20 +1,26 @@
 "use client";
 import React, { useState } from "react";
-import Navbar from "../components/Navbar";
+
 import Footer from "../components/Footer";
-import Bikecard from "../components/Bikecard";
 import { useRouter } from "next/navigation";
+import Card from "../components/Card";
+import Navbar from "../components/Navbar";
 
 export default function Page() {
-  const router = useRouter()
-  const bikes = [
+  const router = useRouter();
+
+  // ✅ Combined bikes & cars
+  const vehicles = [
+    // --- Bikes ---
     {
       id: 1,
+      type: "Bike",
       image: "/images/bike1.jpg",
       price: 85000,
       title: "Hero Splendor Plus",
       desc: "A reliable commuter bike with excellent mileage and low maintenance.",
       tag: "Commuter",
+      fav: true,
       driven: 18000,
       fuel: "Petrol",
       brand: "Hero",
@@ -25,6 +31,7 @@ export default function Page() {
     },
     {
       id: 2,
+      type: "Bike",
       image: "/images/bike2.jpg",
       price: 125000,
       title: "Honda CB Shine",
@@ -40,6 +47,7 @@ export default function Page() {
     },
     {
       id: 3,
+      type: "Bike",
       image: "/images/bike3.jpg",
       price: 210000,
       title: "Bajaj Pulsar 220F",
@@ -55,6 +63,7 @@ export default function Page() {
     },
     {
       id: 4,
+      type: "Bike",
       image: "/images/bike4.jpg",
       price: 345000,
       title: "Royal Enfield Classic 350",
@@ -68,66 +77,82 @@ export default function Page() {
       transmission: "Manual",
       location: "Delhi",
     },
+
+    // --- Cars ---
     {
-      id: 5,
-      image: "/images/bike5.jpg",
-      price: 195000,
-      title: "Yamaha R15 V4",
-      desc: "A sporty bike with sharp design and advanced features for enthusiasts.",
-      tag: "Sports",
-      driven: 10200,
+      id: 101,
+      type: "Car",
+      image: "/images/car1.jpg",
+      price: 550000,
+      title: "Maruti Suzuki Swift",
+      desc: "A compact hatchback with sporty looks and reliable performance.",
+      tag: "Hatchback",
+      fav: true,
+      driven: 35000,
       fuel: "Petrol",
-      brand: "Yamaha",
-      year: 2022,
+      brand: "Maruti",
+      year: 2020,
       owner: "1st Owner",
       transmission: "Manual",
-      location: "Hyderabad",
+      location: "Mumbai",
     },
     {
-      id: 6,
-      image: "/images/bike6.jpg",
-      price: 95000,
-      title: "TVS Apache RTR 160",
-      desc: "A performance-oriented commuter with a stylish look and reliable engine.",
-      tag: "Commuter",
-      driven: 20000,
-      fuel: "Electric",
-      brand: "TVS",
+      id: 102,
+      type: "Car",
+      image: "/images/car2.jpg",
+      price: 1200000,
+      title: "Hyundai Creta",
+      desc: "A stylish SUV with modern features and great comfort.",
+      tag: "SUV",
+      driven: 28000,
+      fuel: "Diesel",
+      brand: "Hyundai",
       year: 2021,
+      owner: "1st Owner",
+      transmission: "Automatic",
+      location: "Delhi",
+    },
+    {
+      id: 103,
+      type: "Car",
+      image: "/images/car3.jpg",
+      price: 850000,
+      title: "Honda City",
+      desc: "A premium sedan with excellent comfort and strong engine performance.",
+      tag: "Sedan",
+      driven: 45000,
+      fuel: "Petrol",
+      brand: "Honda",
+      year: 2019,
       owner: "2nd Owner",
       transmission: "Manual",
       location: "Chennai",
     },
   ];
 
+  // 🔽 Filters
   const [filter, setFilter] = useState("All");
-  const [priceRange, setPriceRange] = useState([0, 400000]);
+  const [priceRange, setPriceRange] = useState([0, 2000000]);
   const [brand, setBrand] = useState("All");
-  const [kmDriven, setKmDriven] = useState(50000);
+  const [kmDriven, setKmDriven] = useState(100000);
   const [year, setYear] = useState("All");
   const [owner, setOwner] = useState("All");
   const [location, setLocation] = useState("All");
 
-  // ✅ Filter Logic
-  const filteredBikes = bikes.filter((bike) => {
+  // ✅ Filtering logic
+  const filteredVehicles = vehicles.filter((v) => {
     const matchesCategory =
       filter === "All" ||
-      bike.tag.toLowerCase() === filter.toLowerCase() ||
-      bike.fuel.toLowerCase() === filter.toLowerCase();
+      v.type.toLowerCase() === filter.toLowerCase() ||
+      v.tag.toLowerCase() === filter.toLowerCase() ||
+      v.fuel.toLowerCase() === filter.toLowerCase();
 
-    const matchesPrice =
-      bike.price >= priceRange[0] && bike.price <= priceRange[1];
-
-    const matchesBrand = brand === "All" || bike.brand === brand;
-
-    const matchesKm = bike.driven <= kmDriven;
-
-    const matchesYear = year === "All" || bike.year.toString() === year;
-
-    const matchesOwner = owner === "All" || bike.owner === owner;
-
-    const matchesLocation =
-      location === "All" || bike.location === location;
+    const matchesPrice = v.price >= priceRange[0] && v.price <= priceRange[1];
+    const matchesBrand = brand === "All" || v.brand === brand;
+    const matchesKm = v.driven <= kmDriven;
+    const matchesYear = year === "All" || v.year.toString() === year;
+    const matchesOwner = owner === "All" || v.owner === owner;
+    const matchesLocation = location === "All" || v.location === location;
 
     return (
       matchesCategory &&
@@ -143,24 +168,37 @@ export default function Page() {
   return (
     <div>
       <Navbar />
+
       {/* ✅ Filters */}
-      <div className="p-6 items-center  flex flex-wrap justify-center gap-6">
-        {/* Category + Fuel */}
-        <div className="flex flex-wrap gap-2">
-          {["All", "Commuter", "Sports", "Cruiser", "Petrol", "Electric"].map(
-            (category) => (
-              <button
-                key={category}
-                onClick={() => setFilter(category)}
-                className={`px-4 py-2 rounded-full text-sm font-medium shadow ${filter === category
+      <div className="p-6 items-center flex flex-wrap justify-center gap-6">
+        {/* Category + Fuel + Type */}
+        <div className="flex flex-wrap gap-2 justify-center">
+          {[
+            "All",
+            "Bike",
+            "Car",
+            "Commuter",
+            "Sports",
+            "Cruiser",
+            "Hatchback",
+            "Sedan",
+            "SUV",
+            "Petrol",
+            "Diesel",
+            "Electric",
+          ].map((category) => (
+            <button
+              key={category}
+              onClick={() => setFilter(category)}
+              className={`px-4 py-2 rounded-full text-sm font-medium shadow ${
+                filter === category
                   ? "bg-blue-600 text-white"
                   : "bg-gray-200 text-gray-700 hover:bg-gray-300"
-                  }`}
-              >
-                {category}
-              </button>
-            )
-          )}
+              }`}
+            >
+              {category}
+            </button>
+          ))}
         </div>
 
         {/* Brand */}
@@ -176,6 +214,8 @@ export default function Page() {
           <option value="Royal Enfield">Royal Enfield</option>
           <option value="Yamaha">Yamaha</option>
           <option value="TVS">TVS</option>
+          <option value="Maruti">Maruti</option>
+          <option value="Hyundai">Hyundai</option>
         </select>
 
         {/* Price Range */}
@@ -184,8 +224,8 @@ export default function Page() {
           <input
             type="range"
             min="0"
-            max="400000"
-            step="5000"
+            max="2000000"
+            step="50000"
             value={priceRange[1]}
             onChange={(e) => setPriceRange([0, parseInt(e.target.value)])}
           />
@@ -200,7 +240,7 @@ export default function Page() {
           <input
             type="range"
             min="0"
-            max="100000"
+            max="200000"
             step="5000"
             value={kmDriven}
             onChange={(e) => setKmDriven(parseInt(e.target.value))}
@@ -246,12 +286,14 @@ export default function Page() {
           <option value="Hyderabad">Hyderabad</option>
           <option value="Chennai">Chennai</option>
         </select>
+
+        {/* Clear All */}
         <button
           onClick={() => {
             setFilter("All");
-            setPriceRange([0, 400000]);
+            setPriceRange([0, 2000000]);
             setBrand("All");
-            setKmDriven(50000);
+            setKmDriven(100000);
             setYear("All");
             setOwner("All");
             setLocation("All");
@@ -260,25 +302,27 @@ export default function Page() {
         >
           Clear All
         </button>
-
       </div>
+
+      {/* ✅ Cards Section */}
       <div className="p-4 mt-5 md:p-5 flex flex-wrap justify-center gap-20 shrink-0">
-        {filteredBikes.map((bike) => (
-          <Bikecard
-            key={bike.id}
-            image={bike.image}
-            price={bike.price}
-            title={bike.title}
-            desc={bike.desc}
-            tag={bike.tag}
-            driven={`${bike.driven} km`}
-            fuel={bike.fuel}
-            onClick={() => router.push(`/product/${bike.id}`)}
+        {filteredVehicles.map((item) => (
+          <Card
+            key={item.id}
+            image={item.image}
+            price={item.price}
+            title={item.title}
+            desc={item.desc}
+            tag={item.tag}
+            fav={item.fav}
+            driven={`${item.driven} km`}
+            fuel={item.fuel}
+            onClick={() => router.push(`/product/${item.id}`)}
           />
         ))}
       </div>
 
-      <Footer />
+      < Footer />
     </div>
   );
 }

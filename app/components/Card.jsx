@@ -1,7 +1,7 @@
 // components/BikeCard.tsx
-import { FaRoad, FaBolt } from "react-icons/fa";
+import { FaRoad, FaBolt, FaCogs } from "react-icons/fa";
 
-export default function Bikecard({Id,image,price,title,desc,tag,driven,fuel,onClick}) {
+export default function Card({Id,fav,image,price,title,desc,tag,driven,fuel,transmission,onClick}) {
   return (
     <div
       onClick={onClick}
@@ -17,6 +17,9 @@ export default function Bikecard({Id,image,price,title,desc,tag,driven,fuel,onCl
         <span className="absolute top-3 left-3 px-3 py-1 rounded-full text-sm font-medium bg-green-600 text-white">
           {tag}
         </span>
+        {fav && <span className="absolute top-3 right-3 px-3 py-1 rounded-full text-sm font-medium bg-pink-600 text-white">
+          {fav && "favourite"}
+        </span>}
       </div>
 
       {/* Content */}
@@ -35,13 +38,17 @@ export default function Bikecard({Id,image,price,title,desc,tag,driven,fuel,onCl
             <FaBolt className="text-lg" />
             <span>{fuel}</span>
           </div>
+          {transmission && <div className="flex flex-col items-center">
+            <FaCogs className="text-lg" />
+            <span>{transmission}</span>
+          </div>}
         </div>
 
         {/* Price + Details */}
         <div className="flex items-center justify-between mt-4">
           <h3 className="text-xl font-bold">₹{price}</h3>
           <p
-            className="text-blue-600 font-medium hover:underline flex items-center"
+            className="text-blue-600 font-medium flex items-center"
           >
             View Details ↗
           </p>

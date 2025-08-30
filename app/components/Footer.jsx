@@ -9,7 +9,7 @@ export default function Footer() {
           <div>
             <h2 className="text-2xl font-bold text-white">Secondmart</h2>
             <p className="mt-3 text-sm">
-              Your trusted destination for second-hand bikes. Buy and sell with ease and confidence.
+              Your trusted destination for second-hand vehicles. Buy and sell with ease and confidence.
             </p>
           </div>
 
@@ -17,10 +17,10 @@ export default function Footer() {
           <div>
             <h3 className="text-lg font-semibold text-white">Quick Links</h3>
             <ul className="mt-3 space-y-2 text-sm">
-              <li><a href="#" className="hover:text-blue-400">Home</a></li>
-              <li><a href="#" className="hover:text-blue-400">Buy Bikes</a></li>
-              <li><a href="#" className="hover:text-blue-400">Sell Your Bike</a></li>
-              <li><a href="#" className="hover:text-blue-400">Contact</a></li>
+              <li><a href="/" className="hover:text-blue-400">Home</a></li>
+              <li><a href="/shop" className="hover:text-blue-400">Buy vehicles</a></li>
+              <li><a href="/sellEnquiry" className="hover:text-blue-400">Sell Your vehicles</a></li>
+              <li><a href="/contact" className="hover:text-blue-400">Contact</a></li>
             </ul>
           </div>
 

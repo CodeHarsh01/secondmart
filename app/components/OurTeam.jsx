@@ -2,31 +2,31 @@
 
 const team = [
   {
-    name: "Courtney Henry",
-    role: "Development Manager",
+    name: "Deepak Namdev",
+    role: "Founder | CEO",
     image:
-      "https://randomuser.me/api/portraits/men/32.jpg",
+      "/CEO.jpeg",
     bg: "bg-blue-50",
   },
   {
-    name: "Jerome Bell",
-    role: "Software Developer",
+    name: "Harsh",
+    role: "CO-Founder | CTO",
     image:
-      "https://randomuser.me/api/portraits/women/44.jpg",
+      "/CTO.jpeg",
     bg: "bg-indigo-50",
   },
   {
-    name: "Jerome Bell",
-    role: "Software Tester",
+    name: "Sameer",
+    role: "CO-Founder | CFO",
     image:
-      "https://randomuser.me/api/portraits/men/76.jpg",
+      "/CFO.jpeg",
     bg: "bg-purple-50",
   },
 ]
 
 export default function OurTeam() {
   return (
-    <section className="w-full px-6 py-12 mt-10">
+    <section className="w-full px-6 py-20 mt-10">
       <h2 className="text-2xl sm:text-3xl font-semibold text-center mb-10">
         Our Team
       </h2>
@@ -40,12 +40,12 @@ export default function OurTeam() {
             <img
               src={member.image}
               alt={member.name}
-              className="w-28 h-28 rounded-full object-cover mb-4"
+              className="w-28 h-28 rounded-full object-cover mb-4 "
             />
             <h3 className="font-semibold text-lg text-gray-900">
               {member.name}
             </h3>
-            <p className="text-gray-500 text-sm">{member.role}</p>
+            <p className="text-gray-800 text-sm">{member.role}</p>
           </div>
         ))}
       </div>

@@ -5,38 +5,50 @@ import Footer from "../components/Footer";
 
 const termsData = [
   {
-    title: "1. Introduction",
-    updated: "Last updated 02/09/2023",
-    content: `Our aim is to keep this Agreement as readable as possible, but in some cases for legal reasons, some of the language is required "legalese".`,
-  },
-  {
-    title: "2. Your Acceptance of this Agreement",
+    title: "TERMS & CONDITIONS – USED VEHICLE TRANSFER (MEDIATOR ROLE)",
     updated: "",
-    content: `These terms of service are entered into by and between You and Our Company ("Company," "we," "our," or "us"). 
-The following terms and conditions govern your access to and use of our services, including any content, functionality, and services offered.
+    content: `1. **Introduction**
+These Terms & Conditions (“Terms”) govern the services provided by [Your Company Name] (“the Mediator”, “we”, “our”, or “us”) in connection with introducing sellers of used vehicles to potential buyers, dealers, or third parties. By using our services, you (“Seller” or “Client”) agree to these Terms.
 
-By using the Website, you accept and agree to be bound and abide by these Terms of Service and our Privacy Policy. 
-If you do not want to agree to these Terms of Service, you must not access or use the Website.
+2. **Scope of Service**
+We act only as an intermediary between the seller and the buyer/dealer. Our role is limited to connecting both parties for the purpose of sale or purchase of used vehicles. We do not:
+- Buy or sell vehicles in our own name.
+- Guarantee the sale price or timeline.
+- Handle or verify ownership transfers.
+- Manage vehicle registration or government documentation.
 
-**BY ACCESSING AND USING THIS WEBSITE, YOU:**
-- Accept and agree to be bound and comply with these Terms of Service.
-- Represent and warrant that you are the legal age of majority.
-- Agree that if you access the Website from a jurisdiction where it is not permitted, you do so at your own risk.`,
-  },
-  {
-    title: "3. User Responsibilities",
-    updated: "",
-    content: `You agree not to misuse the platform, upload harmful content, or attempt unauthorized access.`,
-  },
-  {
-    title: "4. Limitation of Liability",
-    updated: "",
-    content: `We are not responsible for damages arising from the use or inability to use our services.`,
-  },
-  {
-    title: "5. Changes to Terms",
-    updated: "",
-    content: `We may update these terms at any time. Continued use of the platform means you accept the revised terms.`,
+3. **No Legal Responsibility**
+Once we have connected the Seller with a Dealer/Buyer:
+- All documentation, RC transfer, and legal formalities must be directly discussed and completed between the Seller and the Dealer/Buyer.
+- We will not be responsible for delays, disputes, fraud, or incomplete paperwork.
+- The Seller must ensure the vehicle is transferred legally to avoid future liabilities such as challans, accidents, or misuse.
+
+4. **Documentation**
+For the legal transfer of a vehicle in India, Forms 29 & 30, a valid “Sell Letter” from the dealer, and any other RTO-mandated documents must be completed. The Dealer/Buyer is solely responsible for completing these forms and submitting them to the relevant RTO.
+
+5. **No Warranty or Guarantee**
+We do not guarantee:
+- That the dealer will purchase the vehicle.
+- Any specific sale value.
+- That the dealer will complete documentation within a certain time frame.
+
+6. **Limitation of Liability**
+Under no circumstances will we be liable for:
+- Financial loss, damages, or legal issues arising after the handover of the vehicle.
+- Any misuse of the vehicle after sale.
+- Any pending challans, taxes, or liabilities before or after the transaction.
+
+7. **Seller’s Responsibility**
+The Seller must:
+- Provide accurate details about the vehicle.
+- Ensure the vehicle is free from major disputes or legal restrictions.
+- Follow up with the Dealer/Buyer until RC transfer is confirmed.
+
+8. **Governing Law**
+These Terms are governed by the laws of India. Any disputes will fall under the jurisdiction of the courts in [Your City/State].
+
+9. **Acknowledgement**
+By using our services, you acknowledge that our role is strictly limited to introduction/connection and that full responsibility for legal transfer, payment, and compliance lies with the Dealer/Buyer and Seller.`,
   },
 ];
 
@@ -63,26 +75,26 @@ export default function TermsPage() {
 
   return (
     <>
-    <Navbar/>
-    <div className="min-h-screen px-4 py-10">
-      <div className="max-w-4xl mx-auto">
-        <h1 className="text-3xl font-bold text-center mb-8">Terms of Service</h1>
+      <Navbar />
+      <div className="min-h-screen px-4 py-10">
+        <div className="max-w-4xl mx-auto">
+          <h1 className="text-3xl font-bold text-center mb-8">Terms of Service</h1>
 
-        <div className="space-y-4">
-          {termsData.map((item, index) => (
-            <AccordionItem
-              key={index}
-              title={item.title}
-              updated={item.updated}
-              content={item.content}
-              isOpen={openIndex === index}
-              onClick={() => setOpenIndex(openIndex === index ? null : index)}
-            />
-          ))}
+          <div className="space-y-4">
+            {termsData.map((item, index) => (
+              <AccordionItem
+                key={index}
+                title={item.title}
+                updated={item.updated}
+                content={item.content}
+                isOpen={openIndex === index}
+                onClick={() => setOpenIndex(openIndex === index ? null : index)}
+              />
+            ))}
+          </div>
         </div>
       </div>
-    </div>
-    <Footer/>
+      <Footer />
     </>
   );
 }

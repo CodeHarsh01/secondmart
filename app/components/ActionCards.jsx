@@ -12,7 +12,7 @@ export default function ActionCards() {
         <div className="flex flex-col justify-between h-full">
           <div>
             <h3 className="text-2xl font-bold text-gray-900 mb-3">
-              Are You Looking For a Bike?
+              Are You Looking For a vehicle?
             </h3>
             <p className="text-gray-600 mb-6">
               We are committed to providing our customers with exceptional service.
@@ -36,7 +36,7 @@ export default function ActionCards() {
         <div className="flex flex-col justify-between h-full">
           <div>
             <h3 className="text-2xl font-bold text-gray-900 mb-3">
-              Do You Want to Sell a Bike?
+              Do You Want to Sell a vehicle?
             </h3>
             <p className="text-gray-600 mb-6">
               We are committed to providing our customers with exceptional service.
