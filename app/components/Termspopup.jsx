@@ -2,8 +2,8 @@
 
 export default function TermsPage() {
     return (
-      <div className="min-h-screen bg-gray-50 flex justify-center px-4 py-10">
-        <div className="max-w-3xl w-full bg-white shadow-lg rounded-2xl p-8">
+      <div className=" flex justify-center">
+        <div className="max-w-3xl w-full bg-white shadow-2xl rounded-2xl p-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-6">Terms & Conditions</h1>
   
           <div className="space-y-6 text-gray-700 leading-relaxed max-h-[70vh] overflow-y-auto pr-2">

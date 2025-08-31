@@ -62,7 +62,7 @@ export default function MostSearchedBikes() {
 
       {/* Bikes Grid */}
       <div className="py-10 grid grid-col-1 sm:grid-cols-2 lg:grid-cols-3 place-items-center gap-10 ">
-      {bikes.map((bike) => (
+      {bikes.filter((v)=>v.fav).map((bike) => (
           <Card
             key={bike.id}
             image={bike.image}

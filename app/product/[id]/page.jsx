@@ -7,7 +7,8 @@ import {
   FaTachometerAlt, 
   FaCogs, 
   FaGasPump, 
-  FaPhoneAlt 
+  FaPhoneAlt, 
+  FaLocationArrow
 } from "react-icons/fa";
 
 // ✅ Vehicle Data Object
@@ -18,6 +19,7 @@ const vehicleData = {
   year: "2022",
   kms: "18,000 km",
   fuel: "Petrol",
+  location:"Delhi",
   transmission: "Automatic",
   images: ["/images/bike1.jpg", "/images/bike2.jpg", "/images/bike3.jpg", "/images/bike4.jpg", "/images/bike5.jpg"],
   overview: {
@@ -82,6 +84,9 @@ export default function Page() {
           </div>
           <div className="flex items-center gap-2 bg-blue-50 text-blue-600 px-4 py-2 rounded-full text-sm font-medium">
             <FaCogs /> {vehicleData.transmission}
+          </div>
+          <div className="flex items-center gap-2 bg-blue-50 text-blue-600 px-4 py-2 rounded-full text-sm font-medium">
+            <FaLocationArrow /> {vehicleData.location}
           </div>
         </div>
 

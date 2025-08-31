@@ -16,11 +16,10 @@ import {
 
 const Category = [
   // Bikes
-  { name: "Sports Bike", icon: <FaMotorcycle className="text-3xl text-blue-600" />, gradient: "from-blue-100 to-blue-200" },
-  { name: "Cruiser Bike", icon: <FaCarSide className="text-3xl text-pink-600" />, gradient: "from-pink-100 to-pink-200" },
+  { name: "Sports", icon: <FaMotorcycle className="text-3xl text-blue-600" />, gradient: "from-blue-100 to-blue-200" },
+  { name: "Cruiser", icon: <FaCarSide className="text-3xl text-pink-600" />, gradient: "from-pink-100 to-pink-200" },
   { name: "Commuter", icon: <FaRoad className="text-3xl text-orange-500" />, gradient: "from-orange-100 to-orange-200" },
   { name: "Off-Road", icon: <FaMountain className="text-3xl text-purple-600" />, gradient: "from-purple-100 to-purple-200" },
-  { name: "Touring", icon: <FaGlobeAmericas className="text-3xl text-red-600" />, gradient: "from-red-100 to-red-200" },
 
   // Cars
   { name: "Sedan", icon: <FaCar className="text-3xl text-yellow-600" />, gradient: "from-yellow-100 to-yellow-200" },
@@ -44,7 +43,7 @@ export default function BrowseCategory() {
         {Category.map((cat, idx) => (
           <div
             key={idx}
-            onClick={() => Router.push('/shop')}
+            onClick={() => Router.push(`/shop?category=${encodeURIComponent(cat.name)}`)}
             className="flex flex-col items-center justify-center w-32 h-32 bg-white border rounded-2xl shadow-md hover:shadow-xl hover:scale-105 transition-all duration-300 cursor-pointer"
           >
             <div className={`p-3 rounded-full bg-gradient-to-tr ${cat.gradient}`}>

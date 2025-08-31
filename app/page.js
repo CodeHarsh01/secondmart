@@ -7,10 +7,14 @@ import MostSearchedBikes from './components/MostSearchBikes'
 import OurTeam from './components/OurTeam'
 import Footer from './components/Footer'
 import Chooseus from './components/Chooseus'
+import TermsPage from './components/Termspopup'
 
 export default function page() {
   return (
-    <div>
+    <div className='relative '>
+      {/* <div className='fixed inset-0 flex items-center justify-center z-50'>
+        <TermsPage/>
+      </div> */}
       <Navbar/>
       <Herosection/>
       <div className='mx-4 md:mx-5 lg:mx-38'>

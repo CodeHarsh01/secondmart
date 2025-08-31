@@ -1,12 +1,12 @@
 "use client";
+
 import { useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
 export default function SellVehicleForm() {
   const [formData, setFormData] = useState({
-    sellerType: "Owner", // default value
-    vehicleType: "Bike", // ✅ new field
+    vehicleType: "Bike",
     name: "",
     email: "",
     phone: "",
@@ -56,32 +56,6 @@ export default function SellVehicleForm() {
               {formData.vehicleType} Details
             </h3>
             <form onSubmit={handleSubmit} className="space-y-4">
-              {/* Seller Type */}
-              <div>
-                <div className="grid grid-cols-2 gap-4">
-                  {["Owner", "Dealer"].map((type) => (
-                    <label
-                      key={type}
-                      className={`flex items-center gap-3 p-4 border rounded-lg cursor-pointer transition ${
-                        formData.sellerType === type
-                          ? "border-blue-600 bg-blue-50"
-                          : "border-gray-300 bg-white"
-                      }`}
-                    >
-                      <input
-                        type="radio"
-                        name="sellerType"
-                        value={type}
-                        checked={formData.sellerType === type}
-                        onChange={handleChange}
-                        className="w-4 h-4 text-blue-600 focus:ring-blue-500"
-                      />
-                      <span className="font-medium">{type}</span>
-                    </label>
-                  ))}
-                </div>
-              </div>
-
               {/* Vehicle Type */}
               <div>
                 <div className="grid grid-cols-2 gap-4">

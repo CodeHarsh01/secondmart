@@ -1,9 +1,11 @@
 "use client";
+
 import React, { useState } from "react";
 import { FiSearch } from "react-icons/fi";
+import { useRouter } from "next/navigation";
 
 const filterOptions = {
-  category: ["Bike", "Car"], // ✅ Added Category
+  category: ["Bike", "Car"],
   city: ["Delhi", "Mumbai", "Bangalore", "Hyderabad", "Chennai"],
   brand: {
     Bike: ["Hero", "Honda", "Bajaj", "Royal Enfield", "Yamaha", "TVS"],
@@ -17,6 +19,8 @@ const filterOptions = {
 };
 
 export default function Searchbar() {
+  const router = useRouter();
+
   const [filters, setFilters] = useState({
     category: "Bike", // default to bike
     city: "",
@@ -38,6 +42,17 @@ export default function Searchbar() {
   // Filter options for brand & price based on category
   const availableBrands = filterOptions.brand[filters.category] || [];
   const availablePrices = filterOptions.price[filters.category] || [];
+
+  // 🔹 Build query string and navigate
+  const handleSearch = () => {
+    const query = new URLSearchParams();
+
+    Object.entries(filters).forEach(([key, value]) => {
+      if (value) query.append(key, value);
+    });
+
+    router.push(`/shop?${query.toString()}`);
+  };
 
   return (
     <div>
@@ -115,7 +130,7 @@ export default function Searchbar() {
 
           {/* Search button */}
           <div
-            onClick={() => console.log(filters)}
+            onClick={handleSearch}
             className="text-xl font-bold bg-black p-3 cursor-pointer rounded-full text-white"
           >
             <FiSearch />
@@ -197,8 +212,8 @@ export default function Searchbar() {
 
           {/* Search button */}
           <div
-            onClick={() => console.log(filters)}
-            className="text-xl mx-auto font-bold bg-black p-3 rounded-full text-white"
+            onClick={handleSearch}
+            className="text-xl mx-auto font-bold bg-black p-3 rounded-full text-white cursor-pointer"
           >
             <FiSearch />
           </div>
