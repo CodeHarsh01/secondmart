@@ -9,7 +9,7 @@ import OurTeam from './components/OurTeam'
 import Footer from './components/Footer'
 import Chooseus from './components/Chooseus'
 import TermsPage from './components/Termspopup'
-export default function page() {
+export default function Page() {
   const [Loading, setLoading] = useState(true)
   const [termspopup, settermspopup] = useState(true)
     setTimeout(() => {
