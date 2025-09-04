@@ -1,7 +1,25 @@
+"use client"
+import { useState } from "react";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 
 export default function About() {
+  const [Loading, setLoading] = useState(true)
+  setTimeout(() => {
+    setLoading(false)
+  }, 500);
+  if(Loading) {
+    return <div className='h-screen flex items-center justify-center'>
+      <video
+        src="car.mp4"
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="h-56"
+      />
+    </div>
+  }
   return (
     <>
       <Navbar />

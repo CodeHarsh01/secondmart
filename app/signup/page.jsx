@@ -1,8 +1,9 @@
 "use client";
 import { useState } from "react";
 
-export default function signup() {
+export default function Signup() {
   const [formData, setFormData] = useState({
+    role: "user",
     name: "",
     email: "",
     number: "",
@@ -13,10 +14,13 @@ export default function signup() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const handleRoleChange = (e) => {
+    setFormData({ ...formData, role: e.target.value });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Signup Data:", formData);
-    // 👉 later you can connect it with backend or Firebase/Appwrite/Auth
   };
 
   return (
@@ -25,6 +29,35 @@ export default function signup() {
         <h2 className="text-2xl font-bold text-center mb-6">
           Create Account
         </h2>
+
+        {/* Role Selection */}
+        <div className="flex justify-between  mb-6">
+          <label className="flex items-center space-x-2 cursor-pointer">
+            <input
+              type="radio"
+              name="role"
+              value="user"
+              checked={formData.role === "user"}
+              onChange={handleRoleChange}
+              className="h-4 w-4 text-blue-600 focus:ring-blue-500  border-gray-300"
+            />
+            <span className="text-sm font-medium">User</span>
+          </label>
+
+          <label className="flex items-center space-x-2 cursor-pointer">
+            <input
+              type="radio"
+              name="role"
+              value="dealer"
+              checked={formData.role === "dealer"}
+              onChange={handleRoleChange}
+              className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
+            />
+            <span className="text-sm font-medium">Dealer</span>
+          </label>
+        </div>
+
+        {/* Signup Form */}
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-sm font-medium">Name</label>
@@ -77,6 +110,7 @@ export default function signup() {
             Sign Up
           </button>
         </form>
+
         <p className="text-sm text-center mt-4">
           Already have an account?{" "}
           <a href="/signup/login" className="text-blue-600 hover:underline">

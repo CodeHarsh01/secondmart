@@ -17,7 +17,22 @@ export default function SellVehicleForm() {
     price: "",
     message: "",
   });
-
+  const [Loading, setLoading] = useState(true)
+  setTimeout(() => {
+    setLoading(false)
+  }, 500);
+  if(Loading) {
+    return <div className='h-screen flex items-center justify-center'>
+      <video
+        src="car.mp4"
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="h-56"
+      />
+    </div>
+  }
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };

@@ -5,7 +5,7 @@ export default function Card({Id,fav,image,price,title,desc,tag,driven,fuel,tran
   return (
     <div
       onClick={onClick}
-     className="bg-white rounded-2xl shadow-md cursor-pointer hover:shadow-xl transition overflow-hidden w-2xs">
+     className="bg-white rounded-2xl shadow-md cursor-pointer hover:shadow-xl transition overflow-hidden w-2xs hover:-translate-y-1 duration-150">
       {/* Image + Tag + Wishlist */}
       <div className="relative">
         <img

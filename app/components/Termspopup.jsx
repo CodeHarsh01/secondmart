@@ -1,6 +1,6 @@
 // app/terms/page.tsx (Next.js 13+ with App Router)
 
-export default function TermsPage() {
+export default function TermsPage({closePopup}) {
     return (
       <div className=" flex justify-center">
         <div className="max-w-3xl w-full bg-white shadow-2xl rounded-2xl p-8">
@@ -57,7 +57,7 @@ export default function TermsPage() {
           </div>
   
           <div className="mt-8 flex justify-end">
-            <button className="px-6 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition">
+            <button onClick={closePopup} className="px-6 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition">
               Accept
             </button>
           </div>

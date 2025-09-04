@@ -53,6 +53,7 @@ By using our services, you acknowledge that our role is strictly limited to intr
 ];
 
 function AccordionItem({ title, updated, content, isOpen, onClick }) {
+  
   return (
     <div className="border rounded-lg">
       <button

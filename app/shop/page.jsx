@@ -2,189 +2,55 @@
 
 import React, { useEffect, useState } from "react";
 import Footer from "../components/Footer";
-import { useRouter, useSearchParams } from "next/navigation";
 import Card from "../components/Card";
 import Navbar from "../components/Navbar";
+import { databases } from "../appwriteconfig";
 
 export default function Page() {
-  const vehicles = [
-    // --- Bikes ---
-    {
-      id: 1,
-      type: "Bike",
-      image: "/images/bike1.jpg",
-      price: 85000,
-      title: "Hero Splendor Plus",
-      desc: "A reliable commuter bike with excellent mileage and low maintenance.",
-      tag: "Commuter",
-      fav: true,
-      driven: 18000,
-      fuel: "Petrol",
-      brand: "Hero",
-      year: 2019,
-      owner: "1st Owner",
-      transmission: "Manual",
-      location: "Delhi",
-    },
-    {
-      id: 2,
-      type: "Bike",
-      image: "/images/bike2.jpg",
-      price: 125000,
-      title: "Honda CB Shine",
-      desc: "Stylish design with smooth performance, ideal for daily city rides.",
-      tag: "Commuter",
-      driven: 12500,
-      fuel: "Petrol",
-      brand: "Honda",
-      year: 2020,
-      owner: "1st Owner",
-      transmission: "Manual",
-      location: "Mumbai",
-    },
-    {
-      id: 3,
-      type: "Bike",
-      image: "/images/bike3.jpg",
-      price: 210000,
-      title: "Bajaj Pulsar 220F",
-      desc: "A powerful sports commuter with aggressive looks and performance.",
-      tag: "Sports",
-      driven: 25000,
-      fuel: "Petrol",
-      brand: "Bajaj",
-      year: 2018,
-      owner: "2nd Owner",
-      transmission: "Manual",
-      location: "Bangalore",
-    },
-    {
-      id: 4,
-      type: "Bike",
-      image: "/images/bike4.jpg",
-      price: 345000,
-      title: "Royal Enfield Classic 350",
-      desc: "A retro-styled cruiser with strong build quality and comfort.",
-      tag: "Cruiser",
-      driven: 15000,
-      fuel: "Petrol",
-      brand: "Royal Enfield",
-      year: 2021,
-      owner: "1st Owner",
-      transmission: "Manual",
-      location: "Delhi",
-    },
+  const [vehicles, setVehicles] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-    // --- Cars ---
-    {
-      id: 101,
-      type: "Car",
-      image: "/images/car1.jpg",
-      price: 550000,
-      title: "Maruti Suzuki Swift",
-      desc: "A compact hatchback with sporty looks and reliable performance.",
-      tag: "Hatchback",
-      fav: true,
-      driven: 35000,
-      fuel: "Petrol",
-      brand: "Maruti",
-      year: 2020,
-      owner: "1st Owner",
-      transmission: "Manual",
-      location: "Mumbai",
-    },
-    {
-      id: 102,
-      type: "Car",
-      image: "/images/car2.jpg",
-      price: 1200000,
-      title: "Hyundai Creta",
-      desc: "A stylish SUV with modern features and great comfort.",
-      tag: "SUV",
-      driven: 28000,
-      fuel: "Diesel",
-      brand: "Hyundai",
-      year: 2021,
-      owner: "1st Owner",
-      transmission: "Automatic",
-      location: "Delhi",
-    },
-    {
-      id: 103,
-      type: "Car",
-      image: "/images/car3.jpg",
-      price: 850000,
-      title: "Honda City",
-      desc: "A premium sedan with excellent comfort and strong engine performance.",
-      tag: "Sedan",
-      driven: 45000,
-      fuel: "Petrol",
-      brand: "Honda",
-      year: 2019,
-      owner: "2nd Owner",
-      transmission: "Manual",
-      location: "Chennai",
-    },
-  ];
-
-  // Renamed filter to categoryOrTag for clarity
+  // 🔹 Filter States
   const [categoryOrTag, setCategoryOrTag] = useState("All");
   const [priceRange, setPriceRange] = useState([0, 2000000]);
   const [brand, setBrand] = useState("All");
-  const [kmDriven, setKmDriven] = useState(200000); // Max km driven for range filter
+  const [kmDriven, setKmDriven] = useState(200000);
   const [year, setYear] = useState("All");
   const [owner, setOwner] = useState("All");
   const [location, setLocation] = useState("All");
-  // Added fuelFilter state
-  const [fuelFilter, setFuelFilter] = useState("All");
 
-  const router = useRouter();
-  const searchParams = useSearchParams();
-
+  // 🔹 Fetch all listings from Appwrite
   useEffect(() => {
-    const c = searchParams.get("category");
-    const ct = searchParams.get("city");
-    const b = searchParams.get("brand");
-    const f = searchParams.get("fuel");
-    const p = searchParams.get("price");
-    const y = searchParams.get("year");
-    const km = searchParams.get("kilometers");
-    const o = searchParams.get("owner");
-
-    // Check for each search parameter and update the corresponding state
-    if (c) setCategoryOrTag(c);
-    if (ct) setLocation(ct); // Correctly sets location
-    if (b) setBrand(b);
-    if (f) setFuelFilter(f); // Correctly sets fuel filter
-    if (y) setYear(y);
-    if (km) setKmDriven(parseInt(km, 10));
-    if (o) setOwner(o);
-
-    // Parse price range string like "₹0 - ₹5,00,000"
-    if (p) {
-      const nums = p.match(/\d+/g);
-      if (nums) {
-        const min = parseInt(nums[0] + (nums[1] || ""), 10) || 0;
-        const max = parseInt(nums[2] + (nums[3] || ""), 10) || 2000000;
-        setPriceRange([min, max]);
+    const fetchVehicles = async () => {
+      try {
+        const res = await databases.listDocuments(
+          "68b723f00006765dc8bd", // databaseId
+          "listings"              // collectionId
+        );
+        setVehicles(res.documents);
+      } catch (error) {
+        console.error("Error fetching vehicles:", error);
+      } finally {
+        setLoading(false);
       }
-    }
-  }, [searchParams]);
+    };
 
-  // Updated Filtering logic to include all filters
+    fetchVehicles();
+  }, []);
+
+  // 🔹 Apply Filters
   const filteredVehicles = vehicles.filter((v) => {
     const matchesCategoryOrTag =
       categoryOrTag === "All" ||
-      v.type.toLowerCase() === categoryOrTag.toLowerCase() ||
-      v.tag.toLowerCase() === categoryOrTag.toLowerCase();
+      v.type?.toLowerCase() === categoryOrTag.toLowerCase() ||
+      v.tag?.toLowerCase() === categoryOrTag.toLowerCase();
 
     const matchesPrice = v.price >= priceRange[0] && v.price <= priceRange[1];
     const matchesBrand = brand === "All" || v.brand === brand;
-    const matchesKmDriven = v.driven <= kmDriven;
+    const matchesKmDriven = v.kilometers <= kmDriven;
     const matchesYear = year === "All" || v.year === parseInt(year, 10);
     const matchesOwner = owner === "All" || v.owner === owner;
     const matchesLocation = location === "All" || v.location === location;
-    const matchesFuel = fuelFilter === "All" || v.fuel === fuelFilter;
 
     return (
       matchesCategoryOrTag &&
@@ -193,8 +59,7 @@ export default function Page() {
       matchesKmDriven &&
       matchesYear &&
       matchesOwner &&
-      matchesLocation &&
-      matchesFuel
+      matchesLocation
     );
   });
 
@@ -202,9 +67,9 @@ export default function Page() {
     <div>
       <Navbar />
 
-      {/* Filters section */}
+      {/* 🔹 Filters Section */}
       <div className="p-6 items-center flex flex-wrap justify-center gap-6">
-        {/* Category + Fuel + Type */}
+        {/* Category Buttons */}
         <div className="flex flex-wrap gap-2 justify-center">
           {[
             "All",
@@ -224,7 +89,6 @@ export default function Page() {
           ].map((category) => (
             <button
               key={category}
-              // Updated onClick to use the new categoryOrTag state
               onClick={() => setCategoryOrTag(category)}
               className={`px-4 py-2 rounded-full text-sm font-medium shadow ${
                 categoryOrTag === category
@@ -256,7 +120,7 @@ export default function Page() {
 
         {/* Price Range */}
         <div className="flex items-center gap-2 justify-center">
-          <label>Price: </label>
+          <label>Price:</label>
           <input
             type="range"
             min="0"
@@ -272,7 +136,7 @@ export default function Page() {
 
         {/* Km Driven */}
         <div className="flex items-center gap-2 justify-center">
-          <label>Kms Driven: </label>
+          <label>Kms Driven:</label>
           <input
             type="range"
             min="0"
@@ -331,11 +195,10 @@ export default function Page() {
             setCategoryOrTag("All");
             setPriceRange([0, 2000000]);
             setBrand("All");
-            setKmDriven(200000); // Updated to match max value
+            setKmDriven(200000);
             setYear("All");
             setOwner("All");
             setLocation("All");
-            setFuelFilter("All");
           }}
           className="px-4 py-2 bg-red-500 text-white rounded-lg shadow hover:bg-red-600 transition"
         >
@@ -343,21 +206,32 @@ export default function Page() {
         </button>
       </div>
 
-      {/* Corrected Conditional Rendering Logic */}
-      {filteredVehicles.length > 0 ? (
+      {/* 🔹 Listings Section */}
+      {loading ? (
+          <div className=" flex items-center justify-center">
+          <video
+          src="/car.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="h-56"
+        />
+        </div>
+      ) : filteredVehicles.length > 0 ? (
         <div className="p-4 md:p-8 flex flex-wrap justify-center gap-20 shrink-0">
           {filteredVehicles.map((item) => (
             <Card
-              key={item.id}
-              image={item.image}
+              key={item.$id}
+              image={item.images}
               price={item.price}
               title={item.title}
               desc={item.desc}
               tag={item.tag}
               fav={item.fav}
-              driven={`${item.driven} km`}
+              driven={`${item.kilometers} km`}
               fuel={item.fuel}
-              onClick={() => router.push(`/product/${item.id}`)}
+              onClick={() => {}}
             />
           ))}
         </div>
